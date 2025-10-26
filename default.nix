@@ -8,7 +8,7 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
-{
+rec {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
@@ -16,6 +16,10 @@
 
   example-package = pkgs.callPackage ./pkgs/example-package { };
   beads = pkgs.callPackage ./pkgs/beads { };
+  beads-mcp = pkgs.python3Packages.callPackage ./pkgs/beads-mcp {
+    inherit beads;
+  };
+
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }

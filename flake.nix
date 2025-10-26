@@ -10,5 +10,19 @@
         pkgs = import nixpkgs { inherit system; };
       });
       packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
+
+      devShells = forAllSystems (system:
+        let
+          pkgs = import nixpkgs { inherit system; };
+        in
+        {
+          default = pkgs.mkShell {
+            buildInputs = [
+              self.legacyPackages.${system}.beads
+              self.legacyPackages.${system}.beads-mcp
+            ];
+          };
+        }
+      );
     };
 }
