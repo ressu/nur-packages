@@ -20,6 +20,6 @@ buildGoModule rec {
     description = "A memory upgrade for your coding agent";
     homepage = "https://github.com/steveyegge/beads";
     license = licenses.mit;
-    maintainers = with maintainers; [ ressu ];
+
   };
 }

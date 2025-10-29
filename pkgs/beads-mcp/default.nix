@@ -31,6 +31,6 @@ buildPythonPackage rec {
     description = "MCP server for beads issue tracker.";
     homepage = "https://github.com/steveyegge/beads";
     license = licenses.mit;
-    maintainers = with maintainers; [ ressu ];
+
   };
 }
