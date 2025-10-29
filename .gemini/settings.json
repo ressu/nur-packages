@@ -8,5 +8,8 @@
     "beads": {
       "command": "beads-mcp"
     }
+  },
+  "context": {
+    "fileName": "AGENTS.md"
   }
 }
