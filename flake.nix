@@ -6,35 +6,14 @@
       forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
     in
     {
-      legacyPackages = forAllSystems (system:
-        let
-          pkgs = import nixpkgs {
-            inherit system;
-            overlays = [
-              (self: super: {
-                lib = super.lib.extend (libself: libsuper: {
-                  maintainers = libsuper.maintainers // (import ./lib/maintainers.nix);
-                });
-              })
-            ];
-          };
-        in
-        import ./default.nix { inherit pkgs; }
-      );
+      legacyPackages = forAllSystems (system: import ./default.nix {
+        nixpkgs = import nixpkgs { inherit system; };
+      });
       packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
 
       devShells = forAllSystems (system:
         let
-          pkgs = import nixpkgs {
-            inherit system;
-            overlays = [
-              (self: super: {
-                lib = super.lib.extend (libself: libsuper: {
-                  maintainers = libsuper.maintainers // (import ./lib/maintainers.nix);
-                });
-              })
-            ];
-          };
+          pkgs = import nixpkgs { inherit system; };
         in
         {
           default = pkgs.mkShell {

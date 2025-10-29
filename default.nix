@@ -6,11 +6,18 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
+{ nixpkgs ? import <nixpkgs> { } }:
 
+let
+  pkgs = nixpkgs.extend (self: super: {
+    lib = super.lib.extend (libself: libsuper: {
+      maintainers = libsuper.maintainers // (import ./lib/maintainers.nix);
+    });
+  });
+in
 rec {
   # The `lib`, `modules`, and `overlays` names are special
-  lib = import ./lib { inherit pkgs; }; # functions
+  lib = import ./lib { pkgs = pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
