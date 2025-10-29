@@ -11,6 +11,13 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
+let
+  pkgs' = pkgs.extend (self: super: {
+    lib = super.lib.extend (libself: libsuper: {
+      maintainers = libsuper.maintainers // (import ./lib/maintainers.nix);
+    });
+  });
+in
 with builtins;
 let
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
@@ -37,7 +44,7 @@ let
 
   outputsOf = p: map (o: p.${o}) p.outputs;
 
-  nurAttrs = import ./default.nix { inherit pkgs; };
+  nurAttrs = import ./default.nix { pkgs = pkgs'; };
 
   nurPkgs =
     flattenPkgs
