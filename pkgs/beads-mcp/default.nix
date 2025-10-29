@@ -1,4 +1,4 @@
-{ lib, buildPythonPackage, hatchling, fastmcp, pydantic, pydantic-settings, beads }:
+{ lib, pkgs, buildPythonPackage, hatchling, fastmcp, pydantic, pydantic-settings, beads }:
 
 buildPythonPackage rec {
   pname = "beads-mcp";
@@ -30,7 +30,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "MCP server for beads issue tracker.";
     homepage = "https://github.com/steveyegge/beads";
-    license = licenses.mit;
-
-  };
+        license = licenses.mit;
+        broken = lib.versionOlder pkgs.lib.version "25.05";
+      };
 }
