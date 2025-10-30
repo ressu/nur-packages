@@ -1,4 +1,12 @@
-{ lib, pkgs, buildPythonPackage, hatchling, pydantic, pydantic-settings, beads }:
+{
+  lib,
+  pkgs,
+  buildPythonPackage,
+  hatchling,
+  pydantic,
+  pydantic-settings,
+  beads,
+}:
 
 buildPythonPackage rec {
   pname = "beads-mcp";
@@ -32,5 +40,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/steveyegge/beads";
     license = licenses.mit;
     broken = lib.versionOlder pkgs.lib.version "25.05";
+    mainProgram = "beads-mcp";
   };
 }

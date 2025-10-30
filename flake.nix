@@ -19,6 +19,7 @@
 
       devShells = forAllSystems (
         system:
+
         let
           pkgs = import nixpkgs { inherit system; };
         in
@@ -28,6 +29,30 @@
               self.legacyPackages.${system}.beads
               self.legacyPackages.${system}.beads-mcp
             ];
+          };
+        }
+      );
+
+      formatter = forAllSystems (
+        system:
+        let
+          pkgs = import nixpkgs { inherit system; };
+        in
+        pkgs.treefmt.withConfig {
+          runtimeInputs = with pkgs; [
+            nixfmt-rfc-style
+          ];
+
+          settings = {
+            on-unmatched = "info";
+            tree-root-file = "flake.nix";
+
+            formatter = {
+              nixfmt = {
+                command = "nixfmt";
+                includes = [ "*.nix" ];
+              };
+            };
           };
         }
       );

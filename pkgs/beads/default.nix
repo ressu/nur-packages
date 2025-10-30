@@ -1,4 +1,9 @@
-{ lib, buildGoModule, fetchFromGitHub, pkgs }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  pkgs,
+}:
 
 buildGoModule rec {
   pname = "beads";
@@ -17,9 +22,9 @@ buildGoModule rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "A memory upgrade for your coding agent";
+    description = "Memory upgrade for your coding agent";
     homepage = "https://github.com/steveyegge/beads";
     license = licenses.mit;
-
+    mainProgram = "bd";
   };
 }

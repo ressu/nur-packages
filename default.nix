@@ -6,7 +6,9 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 
 rec {
   # The `lib`, `modules`, and `overlays` names are special
@@ -14,7 +16,6 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  example-package = pkgs.callPackage ./pkgs/example-package { };
   beads = pkgs.callPackage ./pkgs/beads { };
   beads-mcp = pkgs.python3Packages.callPackage ./pkgs/beads-mcp {
     inherit beads;
