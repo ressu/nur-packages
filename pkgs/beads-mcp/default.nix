@@ -1,12 +1,4 @@
-{
-  lib,
-  pkgs,
-  buildPythonPackage,
-  hatchling,
-  pydantic,
-  pydantic-settings,
-  beads,
-}:
+{ lib, pkgs, buildPythonPackage, hatchling, pydantic, pydantic-settings, beads }:
 
 buildPythonPackage rec {
   pname = "beads-mcp";
