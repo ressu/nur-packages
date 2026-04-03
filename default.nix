@@ -16,11 +16,6 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  beads = pkgs.callPackage ./pkgs/beads { };
-  beads-mcp = pkgs.python3Packages.callPackage ./pkgs/beads-mcp {
-    inherit beads;
-  };
-
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
